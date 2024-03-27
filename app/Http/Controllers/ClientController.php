@@ -36,8 +36,9 @@ class ClientController extends Controller
         // Devolver la respuesta en formato JSON indicando que se muestra el formulario de creación
         // Obtener la lista de países
         $countries = Countries::all();
+        $clients = Client::all();
 
-        return view('clients.create', ['countries' => $countries]);
+        return view('clients.create', ['countries' => $countries,'clients' => $clients]);
     }
 
     /**
@@ -85,13 +86,18 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Client $client, $id = null)
     {
+        if ($id !== null) {
+            $client = Client::findOrFail($id);
+        }
+
         // Obtener todos los clientes de la base de datos
         $clients = Client::all();
+        $countries = Countries::all();
 
         // Devolver la vista de edición con los clientes
-        return view('clients.edit', ['clients' => $clients]);
+        return view('clients.edit', ['clients' => $clients,'client' => $client,'countries' => $countries]);
     }
 
     public function editForm(Client $client)

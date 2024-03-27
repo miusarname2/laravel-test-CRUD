@@ -5,27 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Aplicación</title>
+    <title>Admin</title>
+    <meta name="author" content="Oscar M Alvarez G">
+    <meta name="description" content="">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <!-- Aquí puedes agregar tus estilos CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Tailwind -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    @yield('extraStyles')
 </head>
-<body>
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Mi Aplicación</a>
-        <!-- Aquí puedes agregar más elementos de la barra de navegación -->
-    </nav>
-
-    <div class="container mt-4">
-        @yield('content')
-    </div>
-
-    <!-- Aquí puedes agregar tus scripts JavaScript -->
-    <script src="{{ asset('js/app.js') }}"></script>
+<body class="bg-gray-100 font-family-karla flex">
+    @yield('asides')
+    @yield('content')
     @yield('scripts')
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
