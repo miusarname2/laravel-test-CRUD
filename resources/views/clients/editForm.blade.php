@@ -17,7 +17,7 @@
         <label for="phone">Teléfono:</label>
         <input type="text" name="phone" id="phone" value="{{ $client->phone }}"><br>
 
-        <label for="country_id">País ID:</label>
+        <label for="country_id">País:</label>
         <input type="text" name="country_id" id="country_id" value="{{ $client->country_id }}"><br>
 
         <button type="submit">Actualizar Cliente</button>

@@ -17,10 +17,11 @@ class ClientController extends Controller
     public function index()
     {
         // Aquí obtienes la lista de clientes
-        $client = Client::all();
+        $clients  = Client::all();
+        $countries = Countries::all();
 
         // Devuelves la respuesta en formato JSON
-        return response()->json(['status' => 200, 'data' => $client]);
+        return view('clients.index', ['clients' => $clients,'countries'=>$countries]);
     }
 
     /**
@@ -146,6 +147,6 @@ class ClientController extends Controller
         $client->delete();
 
         // Devolver la respuesta en formato JSON
-        return response()->json(['status' => 200, 'message' => 'Cliente eliminado exitosamente']);
+        return redirect()->route('clients.index')->with('success', 'Cliente creado correctamente.');
     }
 }
