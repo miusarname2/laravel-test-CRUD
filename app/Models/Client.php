@@ -9,7 +9,7 @@ class Client extends Model
 {
 
 
-    protected $fillable = ['name', 'address', 'phone', 'country'];
+    protected $fillable = ['name', 'address', 'phone', 'country_id'];
 
     public function country()
     {
