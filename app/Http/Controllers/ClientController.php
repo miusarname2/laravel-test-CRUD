@@ -16,11 +16,11 @@ class ClientController extends Controller
      */
     public function index()
     {
-        // Aquí obtienes la lista de clientes
+        // Here you get the list of clients
         $clients  = Client::all();
         $countries = Countries::all();
 
-        // Devuelves la respuesta en formato JSON
+        // You return the response in JSON format
         return view('clients.index', ['clients' => $clients,'countries'=>$countries]);
     }
 
@@ -31,10 +31,6 @@ class ClientController extends Controller
      */
     public function create()
     {
-        // Aquí puedes incluir lógica adicional si es necesario
-
-        // Devolver la respuesta en formato JSON indicando que se muestra el formulario de creación
-        // Obtener la lista de países
         $countries = Countries::all();
         $clients = Client::all();
 
@@ -49,7 +45,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar los datos del formulario
+        // Validate form data
         $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
@@ -57,7 +53,7 @@ class ClientController extends Controller
             'country_id' => 'required|exists:countries,id',
         ]);
 
-        // Crear un nuevo Cliente
+        // Create a new Client
         $client = new Client();
         $client->name = $request->input('name');
         $client->address = $request->input('address');
@@ -65,7 +61,7 @@ class ClientController extends Controller
         $client->country_id = $request->input('country_id');
         $client->save();
 
-        return redirect()->route('clients.index')->with('success', 'Cliente creado correctamente.');
+        return redirect()->route('clients.index')->with('success', 'Client successfully updated.');
     }
 
     /**
@@ -76,7 +72,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        // Devuelves la información del cliente en formato JSON
+        // You return the client information in JSON format
         return response()->json(['status' => 200, 'data' => $client]);
     }
 
@@ -92,23 +88,17 @@ class ClientController extends Controller
             $client = Client::findOrFail($id);
         }
 
-        // Obtener todos los clientes de la base de datos
+        // Get all customers from the database
         $clients = Client::all();
         $countries = Countries::all();
 
-        // Devolver la vista de edición con los clientes
+        // Return edit view with clients
         return view('clients.edit', ['clients' => $clients,'client' => $client,'countries' => $countries]);
-    }
-
-    public function editForm(Client $client)
-    {
-        // Devolver la vista del formulario de edición con el cliente específico
-        return view('clients.editForm', ['client' => $client]);
     }
 
     public function getClientData(Client $client)
     {
-        // Devolver los datos del cliente en formato JSON
+        // Return customer data in JSON format
         return response()->json($client);
     }
 
@@ -121,7 +111,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        // Validar los datos actualizados del cliente
+        // Validate updated customer data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
@@ -129,11 +119,11 @@ class ClientController extends Controller
             'country_id' => 'required|exists:countries,id',
         ]);
 
-        // Actualizar los datos del cliente en la base de datos
+        // Update customer data in database
         $client->update($validatedData);
 
-        // Redirigir a la ruta 'clients.index' con un mensaje de éxito
-        return redirect()->route('clients.index')->with('success', 'Cliente actualizado correctamente.');
+        // Redirect to the path 'clients.index' with a success message
+        return redirect()->route('clients.index')->with('success', 'Client successfully updated.');
     }
 
     /**
@@ -144,15 +134,15 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        // Verificar si el cliente existe
+        // Check if the client exists
         if (!$client) {
-            return response()->json(['status' => 404, 'message' => 'Cliente no encontrado'], 404);
+            return response()->json(['status' => 404, 'message' => 'Client not found'], 404);
         }
 
-        // Eliminar el cliente de la base de datos
+        // Remove the client from the database
         $client->delete();
 
-        // Devolver la respuesta en formato JSON
-        return redirect()->route('clients.index')->with('success', 'Cliente creado correctamente.');
+        // Return response in JSON format
+        return redirect()->route('clients.index')->with('success', 'Client successfully created.');
     }
 }
