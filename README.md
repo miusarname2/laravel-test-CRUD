@@ -56,7 +56,7 @@ Before you begin, make sure you have the following installed:
     composer install
     ```
 
-3. Copy the `.env.example` file to `.env` and configure the database environment variables.
+3. Copy the `.env.example` file to `.env` and configure the environment variables.
 
 4. Generate the application key:
 
@@ -64,19 +64,54 @@ Before you begin, make sure you have the following installed:
     php artisan key:generate
     ```
 
-5. Run the migrations and seeders:
+5. **Database Configuration:**
+   - If you wish to change the database configuration, update the `.env` file with your database credentials.
+   - Connect to your database to manually add countries using the following SQL insertions as examples:
+
+      ```sql
+      INSERT INTO countries (created_at, name, updated_at)
+      VALUES (NOW(), 'Argentina', NOW());
+      ```
+
+      ```sql
+      INSERT INTO countries (created_at, name, updated_at)
+      VALUES (NOW(), 'Brazil', NOW());
+      ```
+
+      ```sql
+        INSERT INTO countries (created_at, name, updated_at)
+        VALUES (NOW(), 'Canada', NOW());
+        ```
+
+      ```sql
+        INSERT INTO countries (created_at, name, updated_at)
+        VALUES (NOW(), 'China', NOW());
+        ```
+
+      ```sql
+        INSERT INTO countries (created_at, name, updated_at)
+        VALUES (NOW(), 'France', NOW());
+        ```
+
+     ```sql
+        INSERT INTO countries (created_at, name, updated_at)
+        VALUES (NOW(), 'Germany', NOW());
+        ```
+    - If you do not want to do inserts, the database environment variables are configured to connect to a cloud database service.
+6. Run the migrations:
 
     ```bash
-    php artisan migrate --seed
+    php artisan migrate
     ```
 
-6. Start the server:
+7. Start the server:
 
     ```bash
     php artisan serve
     ```
 
 You can now access your application at [http://localhost:8000](http://localhost:8000).
+
 ## Use
 
 To use the application, follow the following steps:
