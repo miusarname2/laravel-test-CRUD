@@ -1,78 +1,5 @@
 @extends('layouts.app')
 
-{{-- @section('content')
-    <h1>Editar Clientes</h1>
-
-    <ul>
-        @foreach ($clients as $client)
-            <li>
-                {{ $client->name }} -
-                <a href="#" onclick="showEditForm({{ $client->id }})">Editar</a>
-            </li>
-        @endforeach
-    </ul>
-
-    <div id="editForm" style="display: none;">
-        <h2>Editar Cliente</h2>
-
-        <form id="editClientForm" method="POST" action="#">
-            @csrf
-            @method('PUT')
-
-            <!-- Aquí incluye los campos del formulario para editar el cliente -->
-            <label for="name">Nombre:</label>
-            <input type="text" name="name" id="name" value=""><br>
-
-            <label for="address">Dirección:</label>
-            <input type="text" name="address" id="address" value=""><br>
-
-            <label for="phone">Teléfono:</label>
-            <input type="text" name="phone" id="phone" value=""><br>
-
-            <label for="country_id">País ID:</label>
-            <input type="text" name="country_id" id="country_id" value=""><br>
-
-            <button type="submit">Actualizar Cliente</button>
-        </form>
-    </div>
-
-    <script>
-       async function showEditForm(clientId) {
-            // Realizar una petición AJAX para obtener los datos del cliente
-            axios.get('/clients/' + clientId)
-                .then(function (response) {
-                    var client = response.data;
-
-                    // Mostrar el formulario de edición y prellenar los campos con los datos del cliente
-                    document.getElementById('editForm').style.display = 'block';
-                    document.getElementById('name').value = client.data.name;
-                    document.getElementById('address').value = client.data.address;
-                    document.getElementById('phone').value = client.data.phone;
-                    document.getElementById('country_id').value = client.data.country_id;
-
-                    // Actualizar la acción del formulario con la ruta correcta para actualizar el cliente
-                    var form = document.getElementById('editClientForm');
-                    form.action = '/clients/' + clientId;
-                })
-                .catch(function (error) {
-                    console.error('Error al obtener los datos del cliente:', error);
-                });
-        }
-
-        // Obtener la URL actual
-const url = window.location.href;
-
-// Dividir la URL por '/'
-const partesUrl = url.split('/');
-
-// Obtener el número deseado (en este caso, el número "9")
-const numero = parseInt(partesUrl[partesUrl.length - 2]);
-
-showEditForm(numero);
-    </script>
-
-@endsection --}}
-
 @section('extraStyles')
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
@@ -221,7 +148,7 @@ showEditForm(numero);
                         <i class="fas fa-list mr-3"></i> Edit Form
                     </p>
                     <div class="leading-loose">
-                        <form class="p-10 bg-white rounded shadow-xl" method="POST" action="/clients/9">
+                        <form class="p-10 bg-white rounded shadow-xl" method="POST" action="/clients/{{ $client->id }}">
                             @csrf
                             @method('PUT')
                                 <div>
@@ -246,9 +173,11 @@ showEditForm(numero);
                                         for="country_id">
                                         Country
                                     </label>
-                                    <select  name="country_id"m id="countryEdit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <select name="country_id" id="country_id">
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            <option value="{{ $country->id }}" {{ $client->country_id == $country->id ? 'selected' : '' }}>
+                                                {{ $country->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -280,36 +209,36 @@ showEditForm(numero);
 
     <script>
        async function showEditForm(clientId) {
-            // Realizar una petición AJAX para obtener los datos del cliente
+            // Make an AJAX request to get the client's data
             axios.get('/clients/' + clientId)
                 .then(function (response) {
                     var client = response.data;
 
-                    // Mostrar el formulario de edición y prellenar los campos con los datos del cliente
+                    // Display the edit form and pre-fill the fields with the customer data.
                     document.getElementById('editForm').style.display = 'block';
                     document.getElementById('name').value = client.data.name;
                     document.getElementById('address').value = client.data.address;
                     document.getElementById('phone').value = client.data.phone;
                     document.getElementById('country_id').value = client.data.country_id;
 
-                    // Actualizar la acción del formulario con la ruta correcta para actualizar el cliente
+                    // Update the form action with the correct path to update the client.
                     var form = document.getElementById('editClientForm');
                     form.action = '/clients/' + clientId;
                 })
                 .catch(function (error) {
-                    console.error('Error al obtener los datos del cliente:', error);
+                    console.error('Error in obtaining customer data:', error);
                 });
         }
 
-        // Obtener la URL actual
-        const url = window.location.href;
+            // Get current URL
+            const url = window.location.href;
 
-        // Dividir la URL por '/'
-        const partesUrl = url.split('/');
+            // Split URL by '/'
+            const partsUrl = url.split('/');
 
-        // Obtener el número deseado (en este caso, el número "9")
-        const numero = parseInt(partesUrl[partesUrl.length - 2]);
+            // Obtain the desired number (in this case, the number "9").
+            const number = parseInt(partsUrl[partsUrl.length - 2]);
 
-        showEditForm(numero);
+            showEditForm(number);
     </script>
 @endsection

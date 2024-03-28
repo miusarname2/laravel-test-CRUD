@@ -18,7 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('clients/{client}/edit', 'ClientController@editForm')->name('clients.editForm');
 Route::resource('clients', ClientController::class);
 Route::get('clients/{client}/data', 'ClientController@getClientData')->name('clients.getData');
 
